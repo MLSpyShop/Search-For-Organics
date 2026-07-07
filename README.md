@@ -8,7 +8,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](#contributing)
 
-[**Live Demo**](https://ai.studio/apps/1d0f094a-bc0a-4a71-80d6-693554d8bc58?fullscreenApplet=true) • [**Documentation**](#) • [**Report a Bug**](#) • [**Request a Feature**](#)
+[**Live Demo**](https://ai.studio/apps/1d0f094a-bc0a-4a71-80d6-693554d8bc58?fullscreenApplet=true) • [**Official Website**](https://searchfororganics.com) • [**Documentation**](#) • [**Report a Bug**](#) • [**Request a Feature**](#)
 
 </div>
 
@@ -239,7 +239,9 @@ npm install
 
 ## 📚 Resources
 
+- **Official Website:** https://searchfororganics.com
 - **Official Google AI Studio App:** https://ai.studio/apps/1d0f094a-bc0a-4a71-80d6-693554d8bc58?fullscreenApplet=true
+- **Bing Organics Version:** https://chatgpt.com/g/g-tTNbV6j4z-bing-organics
 - **Google AI Studio:** https://ai.studio/
 - **Gemini API Documentation:** https://ai.google.dev/
 - **Node.js Documentation:** https://nodejs.org/docs/
