@@ -8,7 +8,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](#contributing)
 
-[**Live Demo**](#) • [**Documentation**](#) • [**Report a Bug**](#) • [**Request a Feature**](#)
+[**Live Demo**](https://ai.studio/apps/1d0f094a-bc0a-4a71-80d6-693554d8bc58?fullscreenApplet=true) • [**Documentation**](#) • [**Report a Bug**](#) • [**Request a Feature**](#)
 
 </div>
 
@@ -16,7 +16,7 @@
 
 ## 📋 Overview
 
-**Search-For-Organics** is an AI-powered web application that helps consumers find, verify, and support certified organic and sustainable products. Built with Google AI Studio and powered by the Gemini API, this platform leverages advanced AI capabilities to provide intelligent product recommendations and organic certification verification.
+**Search-For-Organics** is an AI-powered web application that helps consumers find, verify, and support certified organic and sustainable products. Built with Google AI Studio and powered by the Gemini API.
 
 Whether you're looking for organic produce, sustainable household products, or ethically-sourced goods, Search-For-Organics connects you with verified vendors and comprehensive product information.
 
@@ -239,6 +239,7 @@ npm install
 
 ## 📚 Resources
 
+- **Official Google AI Studio App:** https://ai.studio/apps/1d0f094a-bc0a-4a71-80d6-693554d8bc58?fullscreenApplet=true
 - **Google AI Studio:** https://ai.studio/
 - **Gemini API Documentation:** https://ai.google.dev/
 - **Node.js Documentation:** https://nodejs.org/docs/
