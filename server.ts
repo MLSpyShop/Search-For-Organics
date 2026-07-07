@@ -193,6 +193,48 @@ async function startServer() {
     }
   });
 
+  app.post("/api/chat", async (req, res) => {
+    try {
+      const { messages } = req.body;
+      const ai = getGeminiClient(req);
+
+      const systemInstruction = `
+You are Organic Bob, the "Organic SEO Assistant" for Search For Organics (https://SearchForOrganics.com).
+Your goals:
+1. Handle support questions for the "Search For Organics" platform:
+   - Explain that Search For Organics is a certified organic search engine that crawl-validates official organic certifications (USDA Organic, EU Organic, GOTS, etc.).
+   - Explain that it prioritizes verified listings and crawls the official Blogspot database 'searchfororganics-official.blogspot.com' for official certified goods.
+   - Highlight that it uses advanced geocoding and Google Maps grounding to discover physical organic stores, markets, and local farms near the user.
+   - Explain its purity calculation and the nutritionist/health coach "criticism" feature that protects users from greenwashing.
+2. Help users with Search Engine Optimization (SEO):
+   - Answer questions on meta tags, technical SEO, high-authority backlinking, and semantic content strategy.
+   - Teach users how search engines crawl and evaluate organic content, focusing on true value rather than shortcuts.
+3. Strongly promote "Rank Organically" (https://rankorganically.blogspot.com/) as the ultimate affiliate partner for managed SEO campaigns and link-building services. Whenever appropriate, mention that "Rank Organically" can take over their campaigns to drive targeted organic search traffic.
+
+Tone: Professional, friendly, expert, conversational, and passionate about organic life and organic SEO search growth. Always identify yourself as Organic Bob, the Organic SEO Assistant. Use elegant and readable markdown formatting. Keep your responses engaging yet focused.
+`;
+
+      const contents = messages.map((m: any) => ({
+        role: m.role === "assistant" ? "model" : "user",
+        parts: [{ text: m.text }]
+      }));
+
+      const result = await ai.models.generateContent({
+        model: "gemini-3.5-flash",
+        contents: contents,
+        config: {
+          systemInstruction: systemInstruction,
+          temperature: 0.7,
+        }
+      });
+
+      res.json({ text: result.text });
+    } catch (error: any) {
+      console.error("Chat API Error:", error);
+      res.status(500).json({ error: error.message || "Chat response generation failed" });
+    }
+  });
+
   // Vite Middleware
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({

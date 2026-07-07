@@ -1,29 +1,22 @@
 import React, { useState, useEffect, useCallback, FC } from 'react';
 import { 
     Search, MapPin, Globe, Map as MapIcon, ShieldCheck, X, ExternalLink, 
-    Settings, Navigation, Info, ArrowRight, Star, Leaf, CheckCircle2, Lock
+    Settings, Navigation, Info, ArrowRight, Star, Leaf, CheckCircle2, Lock,
+    MessageSquare, Users, Mail
 } from 'lucide-react';
 import { Product, UserLocation, GroundingSource } from './types';
 import { searchOrganicProducts, geocodeLocation } from './services/geminiService';
+import { BobAssistant } from './components/BobAssistant';
+import { OrganicCertifications } from './components/OrganicCertifications';
+import { OrganicOrganizations } from './components/OrganicOrganizations';
+import { OrganicCommunityGroups } from './components/OrganicCommunityGroups';
+import { OrganicManifesto } from './components/OrganicManifesto';
+import { OrganicBusinessPlan } from './components/OrganicBusinessPlan';
+import { FeaturedOrganicInsight } from './components/FeaturedOrganicInsight';
 
 const Logo: FC<{ className?: string }> = ({ className }) => (
     <div className={`relative flex items-center justify-center ${className}`}>
-        {/* Circular Text */}
-        <svg className="absolute w-full h-full" viewBox="0 0 100 100">
-            <defs>
-                <path id="circlePath" d="M 50, 12 a 38,38 0 1,1 0,76 a 38,38 0 1,1 0,-76" />
-            </defs>
-            <text className="text-[6.5px] font-black uppercase tracking-[0.12em] fill-organic-green-dark">
-                <textPath xlinkHref="#circlePath" startOffset="0%" textLength="238.76" lengthAdjust="spacing">
-                    SearchForOrganics.com • SearchForOrganics.com •
-                </textPath>
-            </text>
-        </svg>
-        {/* Center Icon */}
-        <div className="relative w-[65%] h-[65%] bg-white rounded-full flex items-center justify-center shadow-2xl border border-organic-green/10 overflow-hidden">
-            <div className="absolute inset-0 bg-organic-green/5"></div>
-            <span className="text-4xl md:text-5xl relative z-10">🌿</span>
-        </div>
+        <img src="https://i.postimg.cc/5N79zr9x/IMG-6083-Original.jpg" alt="Search for Organics Logo" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
     </div>
 );
 
@@ -41,7 +34,9 @@ const SUGGESTED_TAGS = [
     "Organic Lavender Oil", "Natural Sunscreen", "Fluoride-Free Toothpaste", "Organic Shampoo", "Shea Butter",
     "Castor Oil", "Magnesium Oil", "Bamboo Toothbrush", "Organic Cotton Pads", "Mineral Makeup",
     "Organic Farm Box", "CSA Subscription", "Permaculture Design", "Organic Lawn Care", "Holistic Nutritionist",
-    "Hemp Seed Oil", "Hemp Milk", "Hemp Fiber"
+    "Hemp Seed Oil", "Hemp Milk", "Hemp Fiber",
+    "Organic Farming", "Regenerative Agriculture", "Sustainable Gardening", "Compostable", "Biodynamic", 
+    "Eco-friendly", "Soil Health", "Carbon Sequestration", "Farm-to-Table", "Heirloom Seeds", "Organic Certification"
 ];
 
 // --- UI Components ---
@@ -88,21 +83,12 @@ const SearchBar: FC<SearchBarProps> = ({
       <div className="flex flex-col items-center gap-3">
          <div className="flex flex-wrap justify-center items-center gap-3">
             <button 
-                onClick={onToggleLocalSearch}
-                className={`group flex items-center px-6 py-3 rounded-2xl text-xs font-black transition-all border shadow-sm active:scale-95 ${localSearchEnabled ? 'bg-green-50 text-green-700 border-green-200' : 'bg-gray-100 text-gray-500 border-gray-100 hover:border-gray-300'}`}
-                title="Toggle Local Search"
-            >
-                <Globe className="w-4 h-4 mr-2" />
-                {localSearchEnabled ? 'Local Search ON' : 'Local Search OFF'}
-            </button>
-
-            <button 
                 onClick={onOpenSettings}
                 className={`group flex items-center px-6 py-3 rounded-2xl text-xs font-black transition-all border shadow-sm active:scale-95 ${locationActive ? 'bg-green-50 text-green-700 border-green-200' : 'bg-white text-gray-500 border-gray-100 hover:border-organic-green hover:text-organic-green'}`}
                 title="Location Settings"
             >
                 <MapPin className="w-4 h-4 mr-2" />
-                {locationActive ? (locationLabel || 'Location Active') : 'Customize Location'}
+                {!localSearchEnabled ? 'Local Search OFF' : (locationActive ? (locationLabel || 'Location Active') : 'Customize Location')}
             </button>
 
             <button 
@@ -140,12 +126,15 @@ const SearchBar: FC<SearchBarProps> = ({
           type="submit"
           disabled={isLoading}
           aria-label="Submit Search"
-          className="absolute inset-y-1.5 right-1.5 flex items-center justify-center w-14 text-white bg-organic-green hover:bg-organic-green-dark rounded-2xl disabled:bg-gray-300 shadow-md transition-all active:scale-95"
+          className="absolute inset-y-1.5 right-1.5 flex items-center justify-center px-4 text-white bg-organic-green hover:bg-organic-green-dark rounded-2xl disabled:bg-gray-300 shadow-md transition-all active:scale-95 text-[10px] font-black uppercase tracking-wider gap-1.5"
         >
           {isLoading ? (
             <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
           ) : (
-            <Search className="w-6 h-6" />
+            <>
+              <Search className="w-4 h-4" />
+              <span>Organic Search</span>
+            </>
           )}
         </button>
       </form>
@@ -1008,23 +997,68 @@ const App: FC = () => {
   return (
     <div className="min-h-screen bg-cream text-gray-800 font-sans selection:bg-organic-green/20 pb-24">
       <main className="container mx-auto px-6 py-8 md:py-12 max-w-6xl">
-        <header className="text-center mb-12 md:mb-20 space-y-4 md:space-y-6 animate-in fade-in slide-in-from-top-4 duration-1000">
-          <div className="flex flex-col items-center space-y-4">
+        <header className="text-center mb-6 md:mb-8 space-y-3 md:space-y-4 animate-in fade-in slide-in-from-top-4 duration-1000">
+          <div className="flex flex-col items-center space-y-3">
               <div className="relative group">
-                <div className="absolute -inset-8 bg-organic-green/5 rounded-full blur-3xl group-hover:bg-organic-green/10 transition-all duration-700"></div>
-                <Logo className="w-48 h-48 md:w-64 md:h-64 relative z-10" />
+                <div className="absolute -inset-6 bg-organic-green/5 rounded-full blur-2xl group-hover:bg-organic-green/10 transition-all duration-700"></div>
+                <Logo className="w-28 h-28 md:w-36 md:h-36 relative z-10" />
               </div>
           </div>
-          <h1 className="text-4xl md:text-8xl font-black text-organic-green-dark tracking-tighter leading-none">Search For Organics</h1>
-          <p className="text-sm md:text-xl text-organic-green font-black max-w-2xl mx-auto uppercase tracking-widest opacity-80">Certified Organic Search Engine</p>
-          <div className="flex justify-center pt-2">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-organic-green-dark tracking-tighter leading-none">Search For Organics</h1>
+          <p className="text-xs md:text-base text-organic-green font-black max-w-2xl mx-auto uppercase tracking-widest opacity-80">Certified Organic Search Engine</p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
             <span className="inline-flex items-center px-3 py-1 rounded-full bg-white/50 border border-organic-green/10 text-[9px] font-black text-organic-green uppercase tracking-widest shadow-sm">
               Powered by Google
             </span>
+            <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-gray-300"></div>
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <a 
+                href="https://discord.gg/sQgy7kktS2" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-indigo-50/60 hover:bg-indigo-50 border border-indigo-100 hover:border-indigo-200 text-[9px] font-bold uppercase tracking-wider text-indigo-600 transition-all shadow-sm hover:shadow active:scale-95"
+                title="Join our Discord Server"
+              >
+                <MessageSquare className="w-3 h-3" />
+                <span>Discord</span>
+              </a>
+              <a 
+                href="https://groups.google.com/g/search-for-organics" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50/60 hover:bg-emerald-50 border border-emerald-100 hover:border-emerald-200 text-[9px] font-bold uppercase tracking-wider text-emerald-700 transition-all shadow-sm hover:shadow active:scale-95"
+                title="Subscribe to Google Group mailing list"
+              >
+                <Mail className="w-3 h-3" />
+                <span>Google Group</span>
+              </a>
+              <a 
+                href="https://www.facebook.com/share/g/19n1cCpKhp/?mibextid=wwXIfr" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-sky-50/60 hover:bg-sky-50 border border-sky-100 hover:border-sky-200 text-[9px] font-bold uppercase tracking-wider text-sky-600 transition-all shadow-sm hover:shadow active:scale-95"
+                title="Join our Facebook Group"
+              >
+                <Users className="w-3 h-3" />
+                <span>Facebook</span>
+              </a>
+              <a 
+                href="https://www.linkedin.com/groups/13054615" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50/60 hover:bg-blue-50 border border-blue-100 hover:border-blue-200 text-[9px] font-bold uppercase tracking-wider text-blue-700 transition-all shadow-sm hover:shadow active:scale-95"
+                title="Join our LinkedIn Professional Guild"
+              >
+                <svg className="w-2.5 h-2.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+                <span>LinkedIn</span>
+              </a>
+            </div>
           </div>
         </header>
         
-        <div className="mb-12 md:mb-24">
+        <div className="mb-8 md:mb-12">
             <SearchBar 
                 query={searchQuery} 
                 setQuery={setSearchQuery} 
@@ -1041,6 +1075,7 @@ const App: FC = () => {
                 locationErrorMsg={locationErrorMsg}
             />
         </div>
+        <FeaturedOrganicInsight />
 
         <section aria-live="polite">
             {globalError && (
@@ -1213,6 +1248,11 @@ const App: FC = () => {
           />
       )}
 
+      <BobAssistant 
+        apiKey={geminiApiKey} 
+        onOpenApiSettings={() => setShowApiModal(true)} 
+      />
+
       <section className="container mx-auto px-6 py-32 max-w-4xl border-t border-organic-green/5 mt-24">
         <div className="space-y-12 text-center md:text-left">
           <div className="space-y-4">
@@ -1255,6 +1295,14 @@ const App: FC = () => {
 
       <ShopOurAffiliates />
 
+      <OrganicCertifications />
+
+      <OrganicOrganizations />
+
+      <OrganicCommunityGroups />
+
+      <OrganicManifesto />
+
       <footer className="mt-48 bg-organic-green-dark text-white py-24">
           <div className="container mx-auto px-8 max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-20 text-center md:text-left">
               <div className="space-y-8">
@@ -1273,10 +1321,12 @@ const App: FC = () => {
               <div className="space-y-8">
                   <h4 className="text-xl font-black tracking-tight uppercase">Standards</h4>
                   <p className="text-[10px] text-organic-green-light leading-loose font-bold uppercase tracking-widest opacity-60">Prioritizing USDA, EU Organic, and GOTS standards. All results grounded via Google Gemini with verified Search and Maps datasets.</p>
+                  <OrganicBusinessPlan />
               </div>
           </div>
           <div className="container mx-auto px-8 max-w-6xl mt-24 pt-12 border-t border-white/5 text-center text-[10px] text-organic-green-light font-black uppercase tracking-[0.3em] opacity-40">
               © {new Date().getFullYear()} SEARCH FOR ORGANICS. RELEASED BY MARIELANDRYSPYSHOP.COM.
+              <div className="mt-4 text-white opacity-60">Available to Earth’s 10 Billion Inhabitants.</div>
           </div>
       </footer>
     </div>

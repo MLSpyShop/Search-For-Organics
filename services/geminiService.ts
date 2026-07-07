@@ -35,3 +35,26 @@ export const geocodeLocation = async (locationName: string, apiKey?: string): Pr
   
   return response.json();
 };
+
+export interface ChatMessage {
+  role: 'user' | 'assistant';
+  text: string;
+}
+
+export const getBobAssistantResponse = async (messages: ChatMessage[], apiKey?: string): Promise<{ text: string }> => {
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  if (apiKey) headers["x-gemini-key"] = apiKey;
+
+  const response = await fetch("/api/chat", {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ messages }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.error || "Chat failed");
+  }
+
+  return response.json();
+};
