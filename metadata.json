@@ -1,0 +1,10 @@
+{
+  "name": "Search For Organics",
+  "description": "A third party app released by marielandryspyshop.com (a division of landryindustries.ca). The official search engine for discovering certified organic products and services at SearchForOrganics.com.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
