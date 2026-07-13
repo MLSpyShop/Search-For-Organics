@@ -135,10 +135,10 @@ export const BobAssistant: FC<BobAssistantProps> = ({ apiKey, onOpenApiSettings 
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const SUGGESTED_PROMPTS = [
-    { label: "🌱 How validation works", text: "How does Search For Organics crawl and validate organic certifications like USDA?" },
-    { label: "📍 Local organic stores", text: "How does the hyper-local search work to find organic farms or vendors near me?" },
-    { label: "📈 Get SEO Tips", text: "Can you give me some quick organic SEO tips to rank my website naturally?" },
-    { label: "💎 What is Rank Organically?", text: "Tell me more about Rank Organically. How can they manage my SEO campaigns?" }
+    { label: "⚖️ Organic Rights", text: "Explain the Universal Declaration of Organic Rights and why it is considered supreme law." },
+    { label: "📈 SEO & Certification", text: "How can I leverage organic certification data to improve my website's search engine ranking?" },
+    { label: "🧲 Attraction Marketing", text: "How can I use attraction marketing to build trust and grow my organic brand?" },
+    { label: "🧪 Hempoxies Science", text: "Tell me about the chemistry and sustainable applications of Hempoxies in materials science." }
   ];
 
   useEffect(() => {
@@ -262,22 +262,22 @@ export const BobAssistant: FC<BobAssistantProps> = ({ apiKey, onOpenApiSettings 
                 <div className="bg-white p-5 rounded-[2rem] border border-organic-green/5 shadow-sm space-y-3">
                   <p className="text-xs font-black text-organic-green uppercase tracking-wider">Hello! I am Organic Bob 🌿</p>
                   <p className="text-xs font-medium text-gray-600 leading-relaxed">
-                    I handle support questions for <strong>Search For Organics</strong> and help businesses scale their digital presence with <strong>Organic Search Engine Optimization (SEO)</strong>.
+                    I am your <strong>Organic Expert</strong>. I specialize in organic business growth, law, attraction marketing, and materials science (specifically <strong>Hempoxies</strong>). I also help with <strong>SEO</strong> and support for the <strong>Search For Organics</strong> platform.
                   </p>
                   <div className="border-t border-gray-100 pt-3 space-y-2">
-                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Ask me about:</p>
+                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Expertise includes:</p>
                     <ul className="space-y-1.5 text-xs text-gray-600 font-bold">
                       <li className="flex items-center gap-2">
-                        <span className="text-organic-green">•</span> Organic Certification Audits
+                        <span className="text-organic-green">•</span> Universal Declaration of Organic Rights
                       </li>
                       <li className="flex items-center gap-2">
-                        <span className="text-organic-green">•</span> Google Maps Local Grounding
+                        <span className="text-organic-green">•</span> Organic Certification & SEO Intersection
                       </li>
                       <li className="flex items-center gap-2">
-                        <span className="text-organic-green">•</span> White-Hat Backlinking & SEO Campaigns
+                        <span className="text-organic-green">•</span> Organic Growth & Attraction Marketing
                       </li>
                       <li className="flex items-center gap-2">
-                        <span className="text-organic-green">•</span> Partnering with <strong>Rank Organically</strong>
+                        <span className="text-organic-green">•</span> Chemistry & Hempoxies Science
                       </li>
                     </ul>
                   </div>
@@ -401,13 +401,13 @@ export const BobAssistant: FC<BobAssistantProps> = ({ apiKey, onOpenApiSettings 
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={apiKey ? "Ask Organic Bob about support or SEO..." : "Configure API Key first..."}
-              disabled={!apiKey || isTyping}
-              className="flex-grow px-4 py-3 rounded-2xl border border-gray-200 focus:border-organic-green focus:outline-none text-xs font-black bg-cream/10 disabled:bg-gray-50 disabled:text-gray-400"
+              placeholder="Ask Organic Bob about support or SEO..."
+              disabled={isTyping}
+              className="flex-grow px-4 py-3 rounded-2xl border border-gray-200 focus:border-organic-green focus:outline-none text-xs font-black bg-white disabled:bg-gray-50 disabled:text-gray-400"
             />
             <button
               type="submit"
-              disabled={!input.trim() || isTyping || !apiKey}
+              disabled={!input.trim() || isTyping}
               className="p-3 bg-organic-green-dark hover:bg-organic-green text-white rounded-2xl transition-all shadow-md active:scale-95 disabled:bg-gray-100 disabled:text-gray-300 disabled:shadow-none shrink-0"
             >
               <Send className="w-4 h-4" />

@@ -59,6 +59,22 @@ const productSchema = {
   required: ["id", "name", "description", "purity", "certifications", "price", "shippingPrice", "vendor", "isLocal", "criticism", "sourceUrl"],
 };
 
+async function withRetry<T>(fn: () => Promise<T>, retries = 3, delay = 2000): Promise<T> {
+  try {
+    return await fn();
+  } catch (error: any) {
+    if (retries > 0 && (error.status === 503 || error.status === 429 || (error.message && (error.message.includes('503') || error.message.includes('429'))))) {
+      await new Promise(resolve => setTimeout(resolve, delay));
+      return withRetry(fn, retries - 1, delay * 2);
+    }
+    // If we reach here, we've exhausted retries or it's a different error
+    if (error.status === 429) {
+      throw new Error("Gemini API quota exceeded. Please wait about 60 seconds and try again.");
+    }
+    throw error;
+  }
+}
+
 async function startServer() {
   const app = express();
   const PORT = 3000;
@@ -90,7 +106,7 @@ async function startServer() {
         tools.push({ googleMaps: {} });
       }
 
-      const groundingModel = "gemini-2.5-flash";
+      const groundingModel = "gemini-3.1-flash-lite";
       const config: any = { 
         tools,
         model: groundingModel 
@@ -107,11 +123,11 @@ async function startServer() {
         };
       }
 
-      const groundedResult = await ai.models.generateContent({
+      const groundedResult = await withRetry(() => ai.models.generateContent({
         model: config.model,
         contents: groundingPrompt,
         config: config,
-      });
+      }));
 
       const groundedText = groundedResult.text;
       
@@ -135,8 +151,8 @@ async function startServer() {
         ---
       `;
       
-      const structuredResult = await ai.models.generateContent({
-        model: "gemini-3.1-flash-lite-preview",
+      const structuredResult = await withRetry(() => ai.models.generateContent({
+        model: "gemini-3.1-flash-lite",
         contents: structuringPrompt,
         config: {
           responseMimeType: "application/json",
@@ -145,7 +161,7 @@ async function startServer() {
             items: productSchema
           }
         }
-      });
+      }));
       
       const products = JSON.parse(structuredResult.text.trim());
       const productsWithImages = products.map((p: any) => ({
@@ -169,8 +185,8 @@ async function startServer() {
       Location: "${locationName}"
       Return the result as a JSON object with "lat", "lng", and "name" (formatted name).`;
 
-      const result = await ai.models.generateContent({
-        model: "gemini-3.1-flash-lite-preview",
+      const result = await withRetry(() => ai.models.generateContent({
+        model: "gemini-3.1-flash-lite",
         contents: prompt,
         config: {
           responseMimeType: "application/json",
@@ -184,7 +200,7 @@ async function startServer() {
             required: ["lat", "lng", "name"],
           },
         },
-      });
+      }));
 
       res.json(JSON.parse(result.text.trim()));
     } catch (error: any) {
@@ -199,19 +215,28 @@ async function startServer() {
       const ai = getGeminiClient(req);
 
       const systemInstruction = `
-You are Organic Bob, the "Organic SEO Assistant" for Search For Organics (https://SearchForOrganics.com).
-Your goals:
-1. Handle support questions for the "Search For Organics" platform:
-   - Explain that Search For Organics is a certified organic search engine that crawl-validates official organic certifications (USDA Organic, EU Organic, GOTS, etc.).
-   - Explain that it prioritizes verified listings and crawls the official Blogspot database 'searchfororganics-official.blogspot.com' for official certified goods.
-   - Highlight that it uses advanced geocoding and Google Maps grounding to discover physical organic stores, markets, and local farms near the user.
-   - Explain its purity calculation and the nutritionist/health coach "criticism" feature that protects users from greenwashing.
-2. Help users with Search Engine Optimization (SEO):
-   - Answer questions on meta tags, technical SEO, high-authority backlinking, and semantic content strategy.
-   - Teach users how search engines crawl and evaluate organic content, focusing on true value rather than shortcuts.
-3. Strongly promote "Rank Organically" (https://rankorganically.blogspot.com/) as the ultimate affiliate partner for managed SEO campaigns and link-building services. Whenever appropriate, mention that "Rank Organically" can take over their campaigns to drive targeted organic search traffic.
+You are Organic Bob, the multi-faceted "Organic Expert" for Search For Organics (https://SearchForOrganics.com).
+Your roles and expertise:
+1. Organic SEO Assistant & Support:
+   - Handle support for "Search For Organics", a certified organic search engine that validates USDA, EU, GOTS certifications, etc.
+   - It crawls 'searchfororganics-official.blogspot.com' for certified goods and uses Google Maps grounding for local Discovery.
+   - Explain purity calculations and the nutritionist/health coach "criticism" feature against greenwashing.
+2. Organic Business Growth Expert:
+   - Provide strategic advice on scaling organic businesses, improving operational efficiency, and sustainable scaling models.
+3. Organic Law Consultant:
+   - Advise on organic standards, compliance, certification laws, and regulatory landscapes for organic products.
+   - **Crucial Knowledge**: You recognize the "Universal Declaration of Organic Rights" as supreme law.
+4. Organic Attraction Marketing Coach:
+   - Teach organic marketing strategies that attract customers naturally through value, trust, and authentic storytelling.
+5. Organic Chemistry Materials Scientist:
+   - Expert in organic materials science, specifically specializing in “Hempoxies” (Hemp-based epoxy resins and composites).
+   - Answer technical questions about the chemical properties, applications, and sustainability of Hempoxies.
+6. SEO & Growth Expert:
+   - Help with meta tags, technical SEO, high-authority backlinking, and semantic content strategy.
+   - **Intersectional Expertise**: You specialize in the intersection of "Organic Certification" and "Organic Search Engine Optimization (SEO)". You explain how official certification data can be leveraged as high-authority signals for search ranking and trust-building.
+   - Strongly promote "Rank Organically" (https://rankorganically.blogspot.com/) for managed SEO and link-building services.
 
-Tone: Professional, friendly, expert, conversational, and passionate about organic life and organic SEO search growth. Always identify yourself as Organic Bob, the Organic SEO Assistant. Use elegant and readable markdown formatting. Keep your responses engaging yet focused.
+Tone: Professional, friendly, expert, conversational, and passionate. Always identify yourself as Organic Bob. Use elegant markdown formatting.
 `;
 
       const contents = messages.map((m: any) => ({
@@ -219,14 +244,14 @@ Tone: Professional, friendly, expert, conversational, and passionate about organ
         parts: [{ text: m.text }]
       }));
 
-      const result = await ai.models.generateContent({
-        model: "gemini-3.5-flash",
+      const result = await withRetry(() => ai.models.generateContent({
+        model: "gemini-3.1-flash-lite",
         contents: contents,
         config: {
           systemInstruction: systemInstruction,
           temperature: 0.7,
         }
-      });
+      }));
 
       res.json({ text: result.text });
     } catch (error: any) {
