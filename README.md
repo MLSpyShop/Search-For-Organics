@@ -1,20 +1,83 @@
 <div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
+<img width="1200" height="475" alt="Search For Organics" src="https://www.searchfororganics.com/images/sfo-banner.png" />
 </div>
 
-# Run and deploy your AI Studio app
+# Search For Organics - Global Organic Intelligence System
 
-This contains everything you need to run your app locally.
+Welcome to **Search For Organics**, the world's first certified organic search and intelligence platform dedicated to bringing transparency, authenticity, and accountability to the global organic marketplace.
 
-View your app in AI Studio: https://ai.studio/apps/1d0f094a-bc0a-4a71-80d6-693554d8bc58
+## Mission
 
-## Run Locally
+Search For Organics simplifies and verifies the search for authentic organic products, services, businesses, and information. We leverage AI and open-source intelligence (OSINT) methodologies to map, structure, and authenticate global organic systems—ensuring that "organic" means something real.
 
-**Prerequisites:**  Node.js
+Our core purpose is to:
+- **Verify Authenticity**: Connect users with truly certified organic offerings backed by recognized certification standards
+- **Ensure Transparency**: Provide traceable, verifiable listings that go beyond marketing buzzwords
+- **Support Sustainability**: Promote environmental conservation and high-quality, eco-friendly practices
+- **Build Trust**: Create accountability in the digital organic marketplace
 
+## About This Repository
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+This repository contains the source code for the Search For Organics platform application. It includes everything needed to run, develop, and deploy the application locally or in production.
+
+## Getting Started
+
+### Prerequisites
+- Node.js (v14 or higher recommended)
+- npm or yarn package manager
+
+### Installation & Local Development
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/MLSpyShop/Search-For-Organics.git
+   cd Search-For-Organics
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Configure environment variables:**
+   - Copy `.env.local` and set your `GEMINI_API_KEY` to enable AI-powered search and verification features
+   ```bash
+   GEMINI_API_KEY=your_key_here
+   ```
+
+4. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+
+   The app will be available at `http://localhost:3000`
+
+## Viewing Your App
+
+- **Local Development**: http://localhost:3000
+- **AI Studio**: [View on Google AI Studio](https://ai.studio/apps/1d0f094a-bc0a-4a71-80d6-693554d8bc58)
+
+## Features
+
+- **AI-Powered Search**: Intelligent search across certified organic listings
+- **Verification System**: Cross-reference products and services against certification databases
+- **Global Mapping**: Discover organic businesses, products, and services worldwide
+- **OSINT Integration**: Leverage open-source intelligence for comprehensive data verification
+
+## Learn More
+
+- Visit us: [searchfororganics.com](https://searchfororganics.com)
+- Read about our mission: [What Is SearchForOrganics.com?](https://www.searchfororganics.com/2026/06/what-is-searchfororganicscom-worlds.html)
+- Understand our approach: [Global Organic Intelligence System](https://www.searchfororganics.com/2026/06/search-for-organics-introduction-to.html)
+
+## Contributing
+
+We welcome contributions from developers, organic industry experts, and sustainability advocates. Please feel free to submit issues and pull requests.
+
+## License
+
+This project is part of the Search For Organics initiative. Please refer to the repository's license file for details.
+
+---
+
+**Join us in building the world's most trusted platform for authentic organic discovery.**
