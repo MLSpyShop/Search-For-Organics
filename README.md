@@ -16,6 +16,17 @@ Our core purpose is to:
 - **Support Sustainability**: Promote environmental conservation and high-quality, eco-friendly practices
 - **Build Trust**: Create accountability in the digital organic marketplace
 
+## Try Search For Organics Now
+
+Access our AI-powered organic search across multiple platforms:
+
+- [**Google (Gemini)**](https://ai.studio/apps/1d0f094a-bc0a-4a71-80d6-693554d8bc58?fullscreenApplet=true)
+- [**Bing (Custom GPT)**](https://chatgpt.com/g/g-tTNbV6j4z-bing-organics)
+- [**Perplexity**](https://www.perplexity.ai/spaces/search-for-organics-4bGwLxDDTDu1Nsx.MPfnhg)
+- [**Claude**](https://claude.ai/project/019f5da3-7ea6-760e-9007-8e2d2bf08d07)
+
+Each platform provides certified organic search with verification details, certification bodies, and support for local producers.
+
 ## About This Repository
 
 This repository contains the source code for the Search For Organics platform application. It includes everything needed to run, develop, and deploy the application locally or in production.
@@ -52,14 +63,10 @@ This repository contains the source code for the Search For Organics platform ap
 
    The app will be available at `http://localhost:3000`
 
-## Viewing Your App
-
-- **Local Development**: http://localhost:3000
-- **AI Studio**: [View on Google AI Studio](https://ai.studio/apps/1d0f094a-bc0a-4a71-80d6-693554d8bc58)
-
 ## Features
 
 - **AI-Powered Search**: Intelligent search across certified organic listings
+- **Multi-Platform Support**: Available on Google, Bing, Perplexity, and Claude
 - **Verification System**: Cross-reference products and services against certification databases
 - **Global Mapping**: Discover organic businesses, products, and services worldwide
 - **OSINT Integration**: Leverage open-source intelligence for comprehensive data verification
