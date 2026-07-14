@@ -1,59 +1,477 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <!-- Primary Meta Tags -->
-    <title>Search For Organics - Certified Organic Search Engine</title>
-    <meta name="title" content="Search For Organics - Certified Organic Search Engine" />
-    <meta name="description" content="A third party app released by marielandryspyshop.com (a division of landryindustries.ca). The official search engine for discovering certified organic products and services at SearchForOrganics.com." />
-    <meta name="keywords" content="Search For Organics, certified organic, USDA organic, EU organic, sustainable shopping, organic purity, eco-friendly products" />
-    <meta name="author" content="marielandryspyshop.com" />
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://SearchForOrganics.com/" />
-    <meta property="og:title" content="Search For Organics - Certified Organic Search Engine" />
-    <meta property="og:description" content="A third party app released by marielandryspyshop.com (a division of landryindustries.ca). The official search engine for discovering certified organic products and services at SearchForOrganics.com." />
-    <meta property="og:image" content="https://picsum.photos/seed/organic-search/1200/630" />
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://SearchForOrganics.com/" />
-    <meta property="twitter:title" content="Search For Organics - Certified Organic Search Engine" />
-    <meta property="twitter:description" content="A third party app released by marielandryspyshop.com (a division of landryindustries.ca). The official search engine for discovering certified organic products and services at SearchForOrganics.com." />
-    <meta property="twitter:image" content="https://picsum.photos/seed/organic-search/1200/630" />
-
-    <!-- JSON-LD Initial Structured Data -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Search For Organics",
-        "url": "https://SearchForOrganics.com/",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": "https://SearchForOrganics.com/?q={search_term_string}",
-          "query-input": "required name=search_term_string"
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search For Organics - Global Organic Intelligence System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-      }
-    </script>
 
-  <script type="importmap">
-{
-  "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.27.0",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        nav {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 20px;
+            background: white;
+            border-radius: 10px;
+            margin: 2rem auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        /* Section Styling */
+        section {
+            background: white;
+            padding: 3rem 2rem;
+            margin: 2rem auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            color: #764ba2;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Mission List */
+        .mission-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .mission-item {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .mission-item strong {
+            color: #667eea;
+        }
+
+        /* Platform Links */
+        .platforms {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .platform-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+        }
+
+        .platform-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .feature {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 8px;
+            border-top: 3px solid #667eea;
+        }
+
+        .feature strong {
+            color: #667eea;
+        }
+
+        /* Getting Started */
+        .steps {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .steps li {
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: #f5f7fa;
+            border-radius: 5px;
+            border-left: 4px solid #764ba2;
+        }
+
+        .steps strong {
+            color: #764ba2;
+        }
+
+        code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        /* Links */
+        a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-radius: 10px;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            section {
+                padding: 1.5rem 1rem;
+            }
+        }
+
+        .learn-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .learn-links a {
+            display: block;
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-radius: 8px;
+            border: 2px solid #667eea;
+            transition: all 0.3s;
+        }
+
+        .learn-links a:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+            text-decoration: none;
+        }
+    </style>
 </head>
-  <body class="bg-cream">
-    <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
-  </body>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#mission">Mission</a></li>
+            <li><a href="#try-now">Try Now</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#getting-started">Getting Started</a></li>
+            <li><a href="#learn-more">Learn More</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="container">
+        <div class="hero">
+            <img src="https://github.com/MLSpyShop/Search-For-Organics/assets/search-for-organics-logo.png" alt="Search For Organics Logo">
+            <h1>Search For Organics</h1>
+            <p class="tagline">Global Organic Intelligence System</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Welcome Section -->
+        <section>
+            <p style="font-size: 1.1rem; color: #555; line-height: 1.8;">
+                Welcome to <strong>Search For Organics</strong>, the world's first certified organic search and intelligence platform dedicated to bringing transparency, authenticity, and accountability to the global organic marketplace. We're revolutionizing how people discover and verify authentic organic products and services.
+            </p>
+        </section>
+
+        <!-- Mission Section -->
+        <section id="mission">
+            <h2>Our Mission</h2>
+            <p style="margin-bottom: 1.5rem; color: #666;">
+                Search For Organics simplifies and verifies the search for authentic organic products, services, businesses, and information. We leverage AI and open-source intelligence (OSINT) methodologies to make organic discovery accessible, transparent, and trustworthy.
+            </p>
+            <p style="margin-bottom: 1.5rem; font-weight: 600; color: #333;">Our core purpose is to:</p>
+            <ul class="mission-list">
+                <li class="mission-item">
+                    <strong>🔍 Verify Authenticity</strong>
+                    <p>Connect users with truly certified organic offerings backed by recognized certification standards</p>
+                </li>
+                <li class="mission-item">
+                    <strong>📋 Ensure Transparency</strong>
+                    <p>Provide traceable, verifiable listings that go beyond marketing buzzwords</p>
+                </li>
+                <li class="mission-item">
+                    <strong>🌱 Support Sustainability</strong>
+                    <p>Promote environmental conservation and high-quality, eco-friendly practices</p>
+                </li>
+                <li class="mission-item">
+                    <strong>🤝 Build Trust</strong>
+                    <p>Create accountability in the digital organic marketplace</p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Try Now Section -->
+        <section id="try-now">
+            <h2>Try Search For Organics Now</h2>
+            <p style="margin-bottom: 1.5rem; color: #666;">Access our AI-powered organic search across multiple platforms:</p>
+            <div class="platforms">
+                <a href="https://ai.studio/apps/1d0f094a-bc0a-4a71-80d6-693554d8bc58?fullscreenApplet=true" class="platform-card">
+                    🔍 Google (Gemini)
+                </a>
+                <a href="https://chatgpt.com/g/g-tTNbV6j4z-bing-organics" class="platform-card">
+                    🌐 Bing (Custom GPT)
+                </a>
+                <a href="https://www.perplexity.ai/spaces/search-for-organics-4bGwLxDDTDu1Nsx.MPfnhg" class="platform-card">
+                    💡 Perplexity
+                </a>
+                <a href="https://claude.ai/project/019f5da3-7ea6-760e-9007-8e2d2bf08d07" class="platform-card">
+                    🤖 Claude
+                </a>
+            </div>
+            <p style="margin-top: 1.5rem; color: #666; text-align: center;">
+                Each platform provides certified organic search with verification details, certification bodies, and support for local producers.
+            </p>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features">
+            <h2>Features</h2>
+            <div class="features">
+                <div class="feature">
+                    <strong>⚡ AI-Powered Search</strong>
+                    <p>Intelligent search across certified organic listings</p>
+                </div>
+                <div class="feature">
+                    <strong>🌍 Multi-Platform Support</strong>
+                    <p>Available on Google, Bing, Perplexity, and Claude</p>
+                </div>
+                <div class="feature">
+                    <strong>✓ Verification System</strong>
+                    <p>Cross-reference products and services against certification databases</p>
+                </div>
+                <div class="feature">
+                    <strong>🗺️ Global Mapping</strong>
+                    <p>Discover organic businesses, products, and services worldwide</p>
+                </div>
+                <div class="feature">
+                    <strong>🔗 OSINT Integration</strong>
+                    <p>Leverage open-source intelligence for comprehensive data verification</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Getting Started Section -->
+        <section id="getting-started">
+            <h2>Getting Started</h2>
+
+            <h3>Prerequisites</h3>
+            <ul class="steps">
+                <li><strong>Node.js</strong> (v14 or higher recommended)</li>
+                <li><strong>npm or yarn</strong> package manager</li>
+            </ul>
+
+            <h3>Installation & Local Development</h3>
+            <ol class="steps">
+                <li>
+                    <strong>Clone the repository:</strong>
+                    <pre><code>git clone https://github.com/MLSpyShop/Search-For-Organics.git
+cd Search-For-Organics</code></pre>
+                </li>
+                <li>
+                    <strong>Install dependencies:</strong>
+                    <pre><code>npm install</code></pre>
+                </li>
+                <li>
+                    <strong>Configure environment variables:</strong>
+                    <p>Copy <code>.env.local</code> and set your <code>GEMINI_API_KEY</code> to enable AI-powered search and verification features</p>
+                    <pre><code>GEMINI_API_KEY=your_key_here</code></pre>
+                </li>
+                <li>
+                    <strong>Run the development server:</strong>
+                    <pre><code>npm run dev</code></pre>
+                    <p>The app will be available at <code>http://localhost:3000</code></p>
+                </li>
+            </ol>
+        </section>
+
+        <!-- Learn More Section -->
+        <section id="learn-more">
+            <h2>Learn More</h2>
+            <p style="margin-bottom: 1.5rem; color: #666;">Explore our mission and methodology:</p>
+            <div class="learn-links">
+                <a href="https://searchfororganics.com">
+                    <strong>Visit searchfororganics.com</strong>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; opacity: 0.8;">Discover our platform</p>
+                </a>
+                <a href="https://www.searchfororganics.com/2026/06/what-is-searchfororganicscom-worlds.html">
+                    <strong>What Is SearchForOrganics.com?</strong>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; opacity: 0.8;">Read about our mission</p>
+                </a>
+                <a href="https://www.searchfororganics.com/2026/06/search-for-organics-introduction-to.html">
+                    <strong>Global Organic Intelligence System</strong>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; opacity: 0.8;">Understand our approach</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Contributing Section -->
+        <section>
+            <h2>Contributing</h2>
+            <p style="color: #666;">
+                We welcome contributions from developers, organic industry experts, and sustainability advocates. 
+                Please feel free to <a href="https://github.com/MLSpyShop/Search-For-Organics">submit issues and pull requests</a> on our GitHub repository.
+            </p>
+        </section>
+
+        <!-- License Section -->
+        <section>
+            <h2>License</h2>
+            <p style="color: #666;">
+                This project is part of the Search For Organics initiative. Please refer to the 
+                <a href="https://github.com/MLSpyShop/Search-For-Organics">repository's license file</a> for details.
+            </p>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p style="font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem;">
+            Join us in building the world's most trusted platform for authentic organic discovery.
+        </p>
+        <p>© 2026 Search For Organics. All rights reserved.</p>
+        <p><a href="https://github.com/MLSpyShop/Search-For-Organics" style="color: white;">View on GitHub</a></p>
+    </footer>
+</body>
 </html>
