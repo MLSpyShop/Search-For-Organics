@@ -1,5 +1,5 @@
 <div align="center">
-<img width="1200" height="475" alt="Search For Organics" src="https://www.searchfororganics.com/images/sfo-banner.png" />
+<img width="1200" height="475" alt="Search For Organics" src="https://github.com/MLSpyShop/Search-For-Organics/assets/search-for-organics-logo.png" />
 </div>
 
 # Search For Organics - Global Organic Intelligence System
@@ -8,7 +8,7 @@ Welcome to **Search For Organics**, the world's first certified organic search a
 
 ## Mission
 
-Search For Organics simplifies and verifies the search for authentic organic products, services, businesses, and information. We leverage AI and open-source intelligence (OSINT) methodologies to map, structure, and authenticate global organic systems—ensuring that "organic" means something real.
+Search For Organics simplifies and verifies the search for authentic organic products, services, businesses, and information. We leverage AI and open-source intelligence (OSINT) methodologies to make organic discovery accessible, transparent, and trustworthy.
 
 Our core purpose is to:
 - **Verify Authenticity**: Connect users with truly certified organic offerings backed by recognized certification standards
